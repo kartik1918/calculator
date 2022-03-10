@@ -89,3 +89,8 @@ button:hover {
 button .clear-btns {
     align-self: stretch;
 }
+
+.btns {
+    font-size: 26px;
+    font-weight: bold;
+}

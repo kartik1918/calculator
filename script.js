@@ -16,9 +16,7 @@ const numInput = function() {
         numBtn.addEventListener('click', function() {
             num.push(Number(numBtn.textContent));
             temp.push(Number(numBtn.textContent));
-            console.log(temp);
             screen.innerHTML += `<p class="display-text">${parseFloat(numBtn.textContent)}</p>`
-            console.log(num);
         })
     })
 }
@@ -32,7 +30,6 @@ numInput();
 
 function convertToNumber(num) {
     let operand = Number(num.join(''));
-    console.log(operand);
     ops.push(operand);
     return operand;
 }
@@ -54,9 +51,17 @@ function deleteDigit() {
     screen.innerHTML = `<p class="display-text">${dataToShow}</p>`;
 }
 
+const index = function(ops, btn) {
+    const idx = ops.findIndex(function(item) {
+        return item === '+';
+    })
+    opera = btn.textContent;
+    ops.splice(idx, 1, btn.textContent);
+}
+
+
 function callOperation(sign, btn) {
     if (ops.includes(sign)) {
-        console.log(ops);
         opera = sign;
         secondNumber = convertToNumber(num);
         result = operate(firstNumber, secondNumber, opera)
@@ -78,23 +83,42 @@ function callOperation(sign, btn) {
 
 addBtn.addEventListener('click', function() {
     screen.innerHTML += `<p class="display-text">${addBtn.textContent}</p>`;
-
-    callOperation('+', addBtn);
+    if (ops.includes(opera)) {
+        callOperation(opera, addBtn);
+        index(ops, addBtn);
+    } else {
+        callOperation('+', addBtn);
+    }
 })
 
 subtractBtn.addEventListener('click', function() {
     screen.innerHTML += `<p class="display-text">${subtractBtn.textContent}</p>`;
-    callOperation('−', subtractBtn);
+    if (ops.includes(opera)) {
+        callOperation(opera, subtractBtn);
+        index(ops, subtractBtn);
+    } else {
+        callOperation('−', subtractBtn);
+    }
 })
 
 divideBtn.addEventListener('click', function() {
     screen.innerHTML += `<p class="display-text">${divideBtn.textContent}</p>`;
-    callOperation('÷', divideBtn);
+    if (ops.includes(opera)) {
+        callOperation(opera, divideBtn);
+        index(ops, divideBtn);
+    } else {
+        callOperation('÷', divideBtn);
+    }
 })
 
 multiplyBtn.addEventListener('click', function() {
     screen.innerHTML += `<p class="display-text">${multiplyBtn.textContent}</p>`;
-    callOperation('x', divideBtn);
+    if (ops.includes(opera)) {
+        callOperation(opera, multiplyBtn);
+        index(ops, multiplyBtn);
+    } else {
+        callOperation('x', multiplyBtn);
+    }
 })
 
 equalsBtn.addEventListener('click', function() {
